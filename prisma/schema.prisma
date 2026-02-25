@@ -85,6 +85,7 @@ model Student {
 
   // INDEXES 
   institute Institute @relation(fields: [instituteId], references: [id])
+  results   Result[]
 
   @@index([instituteId])
   @@index([email])
@@ -109,6 +110,7 @@ model Institute {
   students Student[]
 
   // INDEXES
+  results Result[]
 
   @@index([name])
   @@index([createdAt])
@@ -123,9 +125,43 @@ model Course {
   updatedAt DateTime @updatedAt
 
   // RELATIONS
+  results Result[]
 
   // INDEXES
 
   @@index([name])
+  @@index([createdAt])
+}
+
+model Result {
+  id String @id @default(uuid()) @db.Uuid
+
+  studentId   String @db.Uuid
+  courseId    String @db.Uuid
+  instituteId String @db.Uuid
+
+  marks Int
+  year  Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+
+  student   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
+
+  // SINGLE INDEXES & COMPOSITE INDEXES
+  @@index([studentId])
+  @@index([courseId])
+  @@index([instituteId])
+  @@index([year])
+  @@index([marks])
+  @@index([instituteId, studentId])
+  @@index([courseId, year])
+  @@index([courseId, year, instituteId])
+  @@index([studentId, marks])
+  @@index([instituteId, year])
   @@index([createdAt])
 }
