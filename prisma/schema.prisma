@@ -6,3 +6,88 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ENUMS
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+  STUDENT
+}
+
+model User {
+  id       String   @id @default(uuid()) @db.Uuid
+  email    String   @unique
+  password String
+  role     UserRole
+
+  isActive  Boolean @default(true)
+  isBlocked Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+  student    Student?
+  superadmin SuperAdmin?
+
+  // INDEXES
+
+  @@index([email])
+  @@index([role])
+  @@index([isActive])
+  @@index([isBlocked])
+}
+
+// SUPER ADMIN PROFILE
+
+model SuperAdmin {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @unique @db.Uuid
+
+  name         String
+  email        String
+  phone        String?
+  profileImage String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // INDEXES
+
+  @@index([email])
+  @@index([phone])
+}
+
+// STUDENT TABLE
+
+model Student {
+  id String @id @default(uuid()) @db.Uuid
+
+  userId      String @unique @db.Uuid
+  instituteId String @db.Uuid
+
+  name  String
+  email String @unique
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // RELATIONS
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // INDEXES 
+
+  @@index([instituteId])
+  @@index([email])
+  @@index([isActive])
+  @@index([createdAt])
+  @@index([instituteId, isActive])
+}
