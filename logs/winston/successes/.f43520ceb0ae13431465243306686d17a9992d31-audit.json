@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Manik Sarker\\training-backend\\logs\\winston\\successes\\.f43520ceb0ae13431465243306686d17a9992d31-audit.json",
+    "files": [
+        {
+            "date": 1768370937853,
+            "name": "D:\\Manik Sarker\\training-backend\\logs\\winston\\successes\\phu-2026-14-01-12-success.log",
+            "hash": "6ce604e1f690904b4f4f66f012d98be6fcf495b7e7c8747fcb6db9511b62a0f6"
+        },
+        {
+            "date": 1768378990327,
+            "name": "D:\\Manik Sarker\\training-backend\\logs\\winston\\successes\\phu-2026-14-01-14-success.log",
+            "hash": "ef55f5aed0c1065758d2e107bba2c5666593d61cce573b028fc538f86055105e"
+        },
+        {
+            "date": 1768383096233,
+            "name": "D:\\Manik Sarker\\training-backend\\logs\\winston\\successes\\phu-2026-14-01-15-success.log",
+            "hash": "1c010560a902d631a9b96714dd86ca1ee9157e9f191af722f0fabfbb9ea5a269"
+        }
+    ],
+    "hashType": "sha256"
+}

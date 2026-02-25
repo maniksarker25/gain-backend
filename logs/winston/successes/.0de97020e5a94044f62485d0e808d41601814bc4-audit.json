@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\successes\\.0de97020e5a94044f62485d0e808d41601814bc4-audit.json",
+    "files": [
+        {
+            "date": 1768386959456,
+            "name": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\successes\\phu-2026-14-01-16-success.log",
+            "hash": "8a0c4b8332f2577f94133362399ae71b557fe765b0a5ef01e75c01531180892b"
+        },
+        {
+            "date": 1768465321042,
+            "name": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\successes\\phu-2026-15-01-14-success.log",
+            "hash": "e5b32a98f79d5c39c0e136fa58c0abb0d326956956e97495a5145ba564ddf7d4"
+        }
+    ],
+    "hashType": "sha256"
+}

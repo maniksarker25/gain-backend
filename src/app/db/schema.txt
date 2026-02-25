@@ -1,0 +1,255 @@
+
+  Table User {
+  id ObjectId [pk]
+  email string
+  profileId string
+  role enum('admin',"superAdmin" ,'client', 'trainer ')
+  password string
+  passwordChangedAt  Date
+  isBlocked  boolean
+  verifyCode number
+  resetCode number
+  isVerified boolean                  
+  isResetVerified boolean
+  codeExpireIn Date
+  isActive boolean
+  isDeleted boolean
+  createdAt Date
+  updatedAt Date 
+}
+
+Table SuperAdmin {
+  id OjbectId [pk]
+  user ObjectId [ref:> User.id]
+  name string
+  email string
+  phone string
+  profile_image string
+  createdAt Date
+  updatedAt Date
+}
+
+Table Client {
+  id ObjectId [pk]
+  user ObjectId [unique,ref:> User.id]
+  name string
+  email string
+  address string
+  city string
+  postalCode string
+  country string
+  phone string 
+  profile_image string
+  createdAt Date
+  updatedAt Date
+}
+
+Table Trainer {
+  id ObjectId [pk]
+  user ObjectId [unique,ref:> User.id]
+  name string 
+  email string
+  address string
+  city string
+  zipCode   string
+  country string
+  phone string 
+  profile_image string
+  service_images string[]
+  yearsOfExperience number
+  // studio info
+  studioName string
+  studioAddress string
+  studioCity string
+  studioZipCode string
+  studioCountry string
+
+  // social
+  instagramUrl string
+  websiteUrl string 
+    
+  // certificates 
+  certificates ObjectId[] [ref:> TrainerCertificate.id]
+
+  // specialization
+  specialization ObjectId[] [ref:> Specialization.id]
+
+  // payment info
+  stripeConnectAccountId string
+  isStripeConnected boolean
+
+  createdAt Date
+  updatedAt Date 
+
+}
+Table TrainerCertificate {
+  id ObjectId [pk]
+  trainerId ObjectId [ref: > Trainer.id]
+
+  certificateName string
+  certificateDocument string
+  aboutYou string
+  createdAt Date
+  updatedAt Date
+}
+
+Table SessionCategory {
+  id ObjectId [pk]
+  name string
+  createdAt Date
+  updatedAt Date
+}
+
+Table SessionSubCategory {
+  id ObjectId [pk]
+  name string
+  category ObjectId [ref:> SessionCategory.id]
+  createdAt Date
+  updatedAt Date
+}
+
+Table Specialization {
+  id ObjectId [pk]
+  sessionCategory Object [ref:> SessionCategory.id]
+  subCategories string[]
+  createdAt Date
+  updatedAt Date
+}
+ 
+Table Pricing {
+  id ObjectId [pk]
+  trainer ObjectId [unique, ref:> Trainer.id]
+  freeTrial boolean 
+  weeklyTrialLimit number
+  cancelReshedulePolicy enum("ALWAYS_FREE","UPTO12HR","UPTO24HR")
+  individualSessionPrice number
+  isIndividualSesionAvailable boolean
+  fiveSessionPrice number
+  isFiveSessionAvailable boolean
+  tenSessionPrice number
+  isTenSessionAvailable boolean
+  createdAt Date
+  updatedAt Date
+}
+
+Table Credit { 
+  id ObjectId [pk]
+  client ObjectId [ref:> Client.id]
+  trainer ObjectId [ref:> Trainer.id]
+  amountOfCredit number
+  createdAt Date
+  updatedAt Date
+}
+
+
+Table TrainerAvailability {
+  id ObjectId [pk]
+  trainer ObjectId [ref:> Trainer.id]
+  sessionDurationInMins number
+  breakBetweenSessionMins number
+  createdAt Date
+  updatedAt Date
+}
+
+Table Availability {
+  id ObjectId [pk]
+  trainer ObjectId [ref:>Trainer.id]
+  trainerAvailability Object [ref:> TrainerAvailability.id]
+  day enum("Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday")
+  startTime Time
+  endTime Time
+  isAvailable Boolean
+  createdAt Date
+  updatedAt Date
+}
+
+
+Table TrainerAvailabilityException {
+  id ObjectId [pk]
+  trainer ObjectId [ref:> Trainer.id]
+  date Date                   
+  startTime Time           // NULL = full day
+  endTime Time             // NULL = full day
+  reason string
+  createdAt Date
+  updatedAt Date
+} 
+
+
+
+
+
+Table Booking {
+  id ObjectId [pk]
+  trainer ObjectId [ref:> Trainer.id]
+  client ObjectId [ref:> Client.id]
+  durationInMins number
+  date Date
+  startTime Time 
+  endTime Time
+  cancellationPolicy  enum("ALWAYS_FREE","UPTO12HR","UPTO24HR")
+  createdAt Date
+  updatedAt Date    
+}
+ 
+Table Review {
+  id ObjectId [pk]
+  trainer ObjectId [ref:> Trainer.id]
+  client ObjectId [ref:> Client.id]
+  rating number
+  comment string
+  createdAt Date
+  updatedAt Date
+
+}
+
+Table Bookmark {
+   id ObjectId [pk]
+   trainer ObjectId [ref:> Trainer.id]
+   client ObjectId [ref:> Client.id]
+   createdAt Date
+   updatedAt Date
+}
+
+Table Transaction {
+  id ObjectId [pk]
+  client ObjectId [ref:> Client.id]
+  amount number
+  transactionId string
+  createdAt Date
+  updatedAt Date
+}
+
+ 
+Table Conversation {
+  id ObjectId [pk]
+  participants ObjectId[] [ref:> ConversationParticipant.id]
+  lastMessage ObjectId [ref:> Message.id]
+  createdAt Date
+  updatedAt Date
+}
+
+Table ConversationParticipant {
+  id ObjectId [pk]
+  conversationId ObjectId [ref:> Conversation.id]
+  userId ObjectId [ref:>User.id]
+  createdAt Date
+  updatedAt Date
+}
+
+Table Message {
+  id ObjectId [pk]
+  text string
+  imageUrls string[]
+  videoUrls string[]
+  pdfUrls string[]
+  seen Boolean
+  conversationId ObjectId [ref:> Conversation.id]
+  senderId ObjectId [ref:>User.id]
+  createdAt Date
+  updatedAt Date
+
+}
+
+
+

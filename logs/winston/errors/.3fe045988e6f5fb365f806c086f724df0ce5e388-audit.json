@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\errors\\.3fe045988e6f5fb365f806c086f724df0ce5e388-audit.json",
+    "files": [
+        {
+            "date": 1768386959459,
+            "name": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\errors\\phu-2026-14-01-16-error.log",
+            "hash": "f8911072dd69526d32957c37629f44b775a32363329fad4dcbd047e9cfbb2d08"
+        },
+        {
+            "date": 1768465321047,
+            "name": "D:\\Manik Sarker\\Backend\\training-backend\\logs\\winston\\errors\\phu-2026-15-01-14-error.log",
+            "hash": "9364380a9ef829351008d62dc9e79d80b1bbcb0b9c79425cf50035a14af419aa"
+        }
+    ],
+    "hashType": "sha256"
+}
