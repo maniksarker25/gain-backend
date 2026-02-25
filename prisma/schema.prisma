@@ -7,8 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ENUMS
-
 enum UserRole {
   ADMIN
   SUPER_ADMIN
@@ -27,19 +25,14 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
   student    Student?
   superadmin SuperAdmin?
 
-  // INDEXES
-
-  @@index([email])
   @@index([role])
   @@index([isActive])
   @@index([isBlocked])
+  @@index([createdAt])
 }
-
-// SUPER ADMIN PROFILE
 
 model SuperAdmin {
   id     String @id @default(uuid()) @db.Uuid
@@ -53,17 +46,11 @@ model SuperAdmin {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // INDEXES
 
   @@index([email])
   @@index([phone])
 }
-
-// STUDENT TABLE
 
 model Student {
   id String @id @default(uuid()) @db.Uuid
@@ -79,22 +66,15 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // INDEXES 
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   institute Institute @relation(fields: [instituteId], references: [id])
   results   Result[]
 
   @@index([instituteId])
-  @@index([email])
   @@index([isActive])
   @@index([createdAt])
   @@index([instituteId, isActive])
 }
-
-// INSTITUTE TABLE
 
 model Institute {
   id String @id @default(uuid()) @db.Uuid
@@ -105,12 +85,8 @@ model Institute {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
-
   students Student[]
-
-  // INDEXES
-  results Result[]
+  results  Result[]
 
   @@index([name])
   @@index([createdAt])
@@ -124,10 +100,7 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
   results Result[]
-
-  // INDEXES
 
   @@index([name])
   @@index([createdAt])
@@ -146,22 +119,15 @@ model Result {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // RELATIONS
-
   student   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
   institute Institute @relation(fields: [instituteId], references: [id], onDelete: Cascade)
 
-  // SINGLE INDEXES & COMPOSITE INDEXES
   @@index([studentId])
   @@index([courseId])
   @@index([instituteId])
-  @@index([year])
-  @@index([marks])
-  @@index([instituteId, studentId])
-  @@index([courseId, year])
-  @@index([courseId, year, instituteId])
-  @@index([studentId, marks])
-  @@index([instituteId, year])
   @@index([createdAt])
+  @@index([courseId, year])
+  @@index([instituteId, year])
+  @@index([studentId, marks])
 }
