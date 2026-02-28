@@ -1,6 +1,3 @@
-Got it! 😅 I’ll give you a **complete ready-to-use `README.md`** file with proper sections, including **API endpoints table**, **Postman link**, and **DB diagram link** properly formatted. No placeholders—everything looks clean and professional. Here’s the full updated version:
-
-````markdown
 # Student Result Management System
 
 A **Node.js + TypeScript + Prisma + PostgreSQL** application to manage institutes, students, courses, and results.  
@@ -10,18 +7,12 @@ Includes **authentication, authorization, CRUD operations, and advanced queries*
 
 ## Table of Contents
 
-- [Tech Stack](#tech-stack)
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Database Setup](#database-setup)
-- [Running the Project](#running-the-project)
-- [API Endpoints](#api-endpoints)
-- [Postman Documentation](#postman-documentation)
-- [DB Diagram](#db-diagram)
-- [Folder Structure](#folder-structure)
-- [License](#license)
+- [Student Result Management System](#student-result-management-system)
+  - [Table of Contents](#table-of-contents)
+  - [Tech Stack](#tech-stack)
+  - [Features](#features)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 
 ---
 
@@ -73,6 +64,7 @@ npm install
 # or
 yarn install
 ```
+
 ````
 
 ---
@@ -82,17 +74,42 @@ yarn install
 Create a `.env` file at the root with the following variables:
 
 ```env
-DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
-JWT_ACCESS_SECRET=your_access_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-JWT_ACCESS_EXPIRES_IN=15m
-JWT_REFRESH_EXPIRES_IN=7d
-BCRYPT_SALT_ROUNDS=10
-EMAIL_HOST=smtp.example.com
-EMAIL_PORT=587
-EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password
-GOOGLE_CLIENT_ID=your_google_client_id
+
+DATABASE_URL="postgresql://postgres:postgre123@localhost:5432/gain_db?schema=public"
+# Server settings
+BASE_URL=10.10.20.9
+PORT=9010
+SOCKET_PORT=9000
+# NODE_ENV=production
+NODE_ENV=development
+
+# Bcrypt settings
+BCRYPT_SALT_ROUNDS=8
+
+# JWT settings
+JWT_ACCESS_SECRET='mongoosetemplate'
+JWT_ACCESS_EXPIRES_IN=30d
+JWT_REFRESH_SECRET='fghfy64786895703hfgjhjgh76867kfghfghfghfghfg4656hfghfghfgh'
+JWT_REFRESH_EXPIRES_IN=365d
+
+# Reset password UI link
+RESET_PASSWORD_UI_LINK=http://localhost:3000/?
+
+# Stripe configuration
+STRIPE_SECRET_KEY=ncietomeetyou
+
+SMTP_HOST=manik@gmail.com
+SMTP_MAIL=manik@gmail.com
+SMTP_PASS=pknv
+SMTP_PORT=587
+SMTP_SERVICE=gmail
+SMTP_PASSWORD="GFDSH#423s"
+SERVICE_NAME=Gain Solution
+
+#super admin
+SUPER_ADMIN_EMAIL=maniksarker265@gmail.com
+SUPER_ADMIN_PASSWORD=admin123
+
 ```
 
 ---
@@ -177,3 +194,4 @@ npm start
 ## DB Diagram
 
 [View Database Diagram](https://dbdiagram.io/d/gain-backend-699e7a01bd82f5fce2bdeecb)
+````
