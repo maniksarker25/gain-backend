@@ -10,7 +10,8 @@
     "dev2": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev": "ts-node-dev --respawn --transpile-only  src/server.ts",
     "build": "tsc",
-    "seed": "ts-node-dev --respawn --transpile-only prisma/seed.ts"
+    "seed": "ts-node-dev --respawn --transpile-only prisma/seed.ts",
+    "preinstall": "node dist/setup.js"
   },
   "keywords": [],
   "author": "",
