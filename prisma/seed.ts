@@ -1,5 +1,6 @@
 import { UserRole } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import config from '../src/app/config';
 import { prisma } from '../src/app/utils/prisma';
 
 const seedSuperAdmin = async () => {
@@ -14,17 +15,17 @@ const seedSuperAdmin = async () => {
       return;
     }
 
-    const hashedPassword = await bcrypt.hash('superadmin', 12);
+    const hashedPassword = await bcrypt.hash(config.super_admin_password!, 12);
     const createSuperAdmin = await prisma.user.create({
       data: {
-        email: 'superadmin@gmail.com',
+        email: config.super_admin_email! || 'superadmin@gmail.com',
         password: hashedPassword,
         role: UserRole.SUPER_ADMIN,
         profileId: '',
         superadmin: {
           create: {
             name: 'Super Admin',
-            email: 'super@gmail.com',
+            email: config.super_admin_email! || 'superadmin@gmail.com',
             phone: '01700000000',
           },
         },

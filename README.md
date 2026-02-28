@@ -130,7 +130,7 @@ npx prisma migrate dev --name init
 npm run seed
 ```
 
-> The seed file will automatically create a **SUPER_ADMIN** user when the server runs.
+> After run seed commend that will be create a super admin
 
 ---
 
