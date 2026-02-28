@@ -2,21 +2,9 @@ import { z } from 'zod';
 
 const createResultSchema = z.object({
   body: z.object({
-    student: z.object({
-      connect: z.object({
-        id: z.string(),
-      }),
-    }),
-    course: z.object({
-      connect: z.object({
-        id: z.string(),
-      }),
-    }),
-    institute: z.object({
-      connect: z.object({
-        id: z.string(),
-      }),
-    }),
+    studentId: z.string({ required_error: 'Student ID is required' }),
+    courseId: z.string({ required_error: 'Course ID is required' }),
+    instituteId: z.string({ required_error: 'Institute ID is required' }),
     marks: z.number().min(0).max(100),
     year: z.number(),
   }),

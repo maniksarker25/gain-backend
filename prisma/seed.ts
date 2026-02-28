@@ -21,7 +21,7 @@ const seedSuperAdmin = async () => {
         password: hashedPassword,
         role: UserRole.SUPER_ADMIN,
         profileId: '',
-        superAdmin: {
+        superadmin: {
           create: {
             name: 'Super Admin',
             email: 'super@gmail.com',

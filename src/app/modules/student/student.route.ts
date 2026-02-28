@@ -14,17 +14,9 @@ router.post(
   StudentController.createStudent
 );
 
-router.get(
-  '/get-all',
-  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  StudentController.getAllStudents
-);
+router.get('/get-all', StudentController.getAllStudents);
 
-router.get(
-  '/get-single/:id',
-  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  StudentController.getSingleStudent
-);
+router.get('/get-single/:id', StudentController.getSingleStudent);
 
 router.patch(
   '/update/:id',

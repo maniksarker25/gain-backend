@@ -1,48 +1,44 @@
-import { NextFunction, Request, Response } from "express";
-import catchAsync from "../utils/catchAsync";
-import { JwtPayload } from "jsonwebtoken";
+import { NextFunction, Request, Response } from 'express';
+import { JwtPayload } from 'jsonwebtoken';
+import catchAsync from '../utils/catchAsync';
 
-import config from "../config";
-import httpStatus from "http-status";
-import AppError from "../error/appError";
-import { jwtHelper } from "../helpers/jwtHelper";
-import prisma from "../utils/prisma";
-import { UserStatus } from "@prisma/client";
+import httpStatus from 'http-status';
+import config from '../config';
+import AppError from '../error/appError';
+import { jwtHelper } from '../helpers/jwtHelper';
+import { prisma } from '../utils/prisma';
 
 const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req?.headers?.authorization;
     // console.log(token);
     if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "Unauthorized Access");
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access');
     }
     let decoded;
 
     try {
-      decoded = jwtHelper.verifyToken(
-        token,
-        config.jwt_access_secret as string
-      );
+      decoded = jwtHelper.verifyToken(token, config.jwt_access_secret as string);
     } catch (err) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "Unauthorized Access");
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access');
     }
     if (!decoded) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "Unauthorized Access");
+      throw new AppError(httpStatus.UNAUTHORIZED, 'Unauthorized Access');
     }
     const { id, role } = decoded;
     const userInfo = await prisma.user.findUnique({
       where: {
         id,
-        status: UserStatus.ACTIVE,
+        isActive: true,
       },
     });
     // console.log(userInfo);
     if (!userInfo) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You ae unauthorized");
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You ae unauthorized');
     }
 
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are unauthorized");
+      throw new AppError(httpStatus.UNAUTHORIZED, 'You are unauthorized');
     }
     req.user = decoded as JwtPayload;
     next();

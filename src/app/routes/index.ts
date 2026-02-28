@@ -1,5 +1,6 @@
 import express from 'express';
 import { authRoutes } from '../modules/auth/auth.routes';
+import { courseRoutes } from '../modules/course/course.route';
 import { instituteRoutes } from '../modules/institute/institute.route';
 import { resultRoutes } from '../modules/result/result.route';
 import { studentRoutes } from '../modules/student/student.route';
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: '/result',
     route: resultRoutes,
+  },
+  {
+    path: '/course',
+    route: courseRoutes,
   },
 ];
 

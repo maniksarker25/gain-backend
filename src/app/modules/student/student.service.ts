@@ -19,7 +19,7 @@ interface QueryParams {
 }
 
 const createStudent = async (payload: CreateStudentPayload) => {
-  const isUserExist = await prisma.user.findUnique({
+  const isUserExist = await prisma.user.findFirst({
     where: { email: payload.email },
   });
 
@@ -167,27 +167,21 @@ const updateStudent = async (id: string, payload: Partial<Prisma.StudentUpdateIn
 };
 
 const deleteStudent = async (id: string) => {
-  const isExist = await prisma.student.findUnique({
+  const student = await prisma.student.findUnique({
     where: { id },
+    include: { user: true },
   });
 
-  if (!isExist) {
+  if (!student) {
     throw new AppError(httpStatus.NOT_FOUND, 'Student not found');
   }
 
-  const result = await prisma.$transaction(async (tx) => {
-    await tx.user.delete({
-      where: { id: isExist.userId },
-    });
-
-    return await tx.student.delete({
-      where: { id },
-    });
+  const deletedUser = await prisma.user.delete({
+    where: { id: student.userId },
   });
 
-  return result;
+  return deletedUser;
 };
-
 const StudentService = {
   createStudent,
   getAllStudents,

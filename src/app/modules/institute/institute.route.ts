@@ -14,17 +14,9 @@ router.post(
   InstituteController.createInstitute
 );
 
-router.get(
-  '/get-all',
-  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  InstituteController.getAllInstitutes
-);
+router.get('/get-all', InstituteController.getAllInstitutes);
 
-router.get(
-  '/get-single/:id',
-  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  InstituteController.getSingleInstitute
-);
+router.get('/get-single/:id', InstituteController.getSingleInstitute);
 
 router.patch(
   '/update/:id',

@@ -14,13 +14,20 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @default(uuid()) @db.Uuid
-  email    String   @unique
-  password String
-  role     UserRole
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  profileId String?  @default("")
+  password  String
+  role      UserRole
 
-  isActive  Boolean @default(true)
-  isBlocked Boolean @default(false)
+  isActive          Boolean   @default(true)
+  isBlocked         Boolean   @default(false)
+  isVerified        Boolean   @default(false)
+  verifyCode        Int?
+  resetCode         Int?
+  isResetVerified   Boolean   @default(false)
+  codeExpireIn      DateTime?
+  passwordChangedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
