@@ -13,6 +13,8 @@ Includes **authentication, authorization, CRUD operations, and advanced queries*
   - [Features](#features)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Postman Documentation](#postman-documentation)
+  - [DB Diagram](#db-diagram)
 
 ---
 
@@ -124,6 +126,10 @@ npx prisma generate
 npx prisma migrate dev --name init
 ```
 
+# Seed super admin
+npm run seed
+```
+
 > The seed file will automatically create a **SUPER_ADMIN** user when the server runs.
 
 ---
@@ -183,15 +189,12 @@ npm start
 | Result    | `/api/v1/result/top-students`     | GET    | Get top-ranking students       |
 | Result    | `/api/v1/result/top-courses`      | GET    | Get top courses per year       |
 
----
+````
 
 ## Postman Documentation
 
 [View Postman Collection](https://documenter.getpostman.com/view/46995587/2sBXcHhyyA)
 
----
-
 ## DB Diagram
 
 [View Database Diagram](https://dbdiagram.io/d/gain-backend-699e7a01bd82f5fce2bdeecb)
-````
